@@ -1,4 +1,4 @@
-# LDPC Codes — Replication of Gallager (1962)
+# LDPC Codes: Replication of Gallager (1962)
 
 **COE 592: Advanced Signal and Communication Theory | End-of-Semester Assignment**  
 **Student:** Bless Elikem Krapah
@@ -13,19 +13,15 @@
 
 ---
 
-## What the Paper Does
+## What the paper does
 
-Gallager introduced Low-Density Parity-Check (LDPC) codes — a class of linear block codes defined by a sparse parity-check matrix H — and proposed iterative (belief propagation) decoding. Key contributions:
+Gallager (1962) introduced Low-Density Parity-Check (LDPC) codes: linear block codes defined by a sparse parity-check matrix H, decoded with iterative message passing on a bipartite graph. The construction produces a (j,k)-regular H where every column has weight j and every row has weight k, built by stacking j randomly permuted sub-matrices. The decoder passes log-likelihood-ratio messages between variable nodes and check nodes until the syndrome clears, yielding BER curves that approach the Shannon limit far below what any code of the 1950s could manage.
 
-1. **Construction**: A (j,k)-regular H where every column has weight j and every row has weight k. Gallager's explicit construction stacks j randomly permuted sub-matrices.
-2. **Decoder**: Iterative message passing on the Tanner graph (now called belief propagation / sum-product algorithm).
-3. **Performance**: BER curves approaching the Shannon limit, far below uncoded BPSK.
-
-The paper was largely ignored for 30 years until MacKay & Neal (1996) rediscovered LDPC codes. Today LDPC codes are in every 5G NR device.
+The paper was largely ignored for 30 years. MacKay and Neal rediscovered LDPC codes in 1996, and today they are in 5G NR, Wi-Fi 6, and DVB-S2.
 
 ---
 
-## Replication Scope
+## Replication scope
 
 | Component | Paper | This replication |
 |---|---|---|
@@ -43,7 +39,7 @@ The paper was largely ignored for 30 years until MacKay & Neal (1996) rediscover
 pip install -r requirements.txt
 ```
 
-Python 3.9+ required. No other dependencies.
+Requires Python 3.9+.
 
 ---
 
@@ -69,11 +65,11 @@ LDPC (j=3,k=6)   ~3e-2          ~2e-3          <1e-5
 LDPC (j=4,k=8)   ~2e-2          ~1e-3          <1e-5
 ```
 
-All LDPC codes show a sharp waterfall region; (j=3,k=6) and (j=4,k=8) reach the error floor below BER 10⁻⁵ at ~3 dB vs 8 dB for uncoded BPSK — consistent with Gallager's theoretical predictions.
+All three codes show a sharp waterfall. The (j=3,k=6) and (j=4,k=8) configurations drop below BER 10⁻⁵ at around 3 dB, compared to 8 dB for uncoded BPSK, consistent with Gallager's theoretical analysis.
 
 ---
 
-## Project Structure
+## Project structure
 
 ```
 src/
@@ -82,28 +78,29 @@ src/
   decoder.py    Vectorised log-domain sum-product belief propagation
 
 results/
-  ber_vs_snr.png      BER curves — main replication figure (A)
-  convergence.png     BER vs BP iteration — original contribution (B)
-  h_sparsity.png      H matrix sparsity visualisation — original (C)
-  gain_vs_snr.png     BER gain over uncoded BPSK — original (D)
+  ber_vs_snr.png      BER curves (main replication figure A)
+  convergence.png     BER vs BP iteration (original contribution B)
+  h_sparsity.png      H matrix sparsity visualisation (original C)
+  gain_vs_snr.png     BER gain over uncoded BPSK (original D)
 
-main.py         Monte Carlo simulation orchestration
+main.py         Monte Carlo simulation
 visualize.py    Figure generation
 ```
 
 ---
 
-## Key Algorithms
+## Key algorithms
 
-**Gallager's H construction (`src/ldpc.py`):**  
-H = [H₁; H₂; …; Hⱼ]. H₁ is block-diagonal (each block: one 1 per column, k columns per row). H₂…Hⱼ are random column permutations of H₁, giving each variable node exactly j parity constraints.
+H construction (`src/ldpc.py`): H = [H₁; H₂; …; Hⱼ]. H₁ is block-diagonal, one 1 per column in k-column blocks. H₂…Hⱼ are random column permutations of H₁, so each variable node connects to exactly j distinct check nodes.
 
-**Log-domain belief propagation (`src/decoder.py`):**  
-Messages are LLRs. Check-node update uses sign/magnitude decomposition:
-- Sign: sign_excl = (∏ sign) × selfₛᵢgₙ  
-- Magnitude: |r| = 2·arctanh(exp(Σlog|tanh(q/2)| − self))  
+Belief propagation (`src/decoder.py`): messages are LLRs. The check-node update uses sign/log-magnitude decomposition to avoid underflow in the tanh product:
 
-Variable-node update: q[i→j] = L_ch[i] + Σⱼ′≠ⱼ r[j′→i] (extrinsic LLR).
+```
+sign_excl    = (product of incoming signs) * own sign
+log_excl     = sum(log|tanh(q/2)|) - own term
+r[j->i]      = sign_excl * 2 * arctanh(exp(log_excl))
+```
 
-**Vectorised implementation:**  
-Messages stored as flat arrays indexed by edge (check_id × k + within-check position), enabling numpy matrix operations over all edges simultaneously.
+Variable-node update: `q[i->j] = L_ch[i] + sum of all r[j'->i] except j`.
+
+All messages are stored as flat arrays indexed by edge (`check_id * k + within-check position`), so every update is a numpy matrix operation with no Python loops over edges.
