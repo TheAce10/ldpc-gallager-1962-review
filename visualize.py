@@ -46,7 +46,7 @@ def load():
 
 
 # ---------------------------------------------------------------------------
-# Figure A — BER vs Eb/N0
+# Figure A: BER vs Eb/N0
 # ---------------------------------------------------------------------------
 def fig_ber_vs_snr(results):
     fig, ax = plt.subplots(figsize=(8, 5.5))
@@ -87,7 +87,7 @@ def fig_ber_vs_snr(results):
 
 
 # ---------------------------------------------------------------------------
-# Figure B — BER vs iteration number  [original contribution]
+# Figure B: BER vs iteration number  [original contribution]
 # ---------------------------------------------------------------------------
 def fig_convergence(results):
     conv = results.get("convergence")
@@ -107,7 +107,7 @@ def fig_convergence(results):
     ax.set_ylabel("Bit Error Rate (BER)", fontsize=12)
     ax.set_title(
         "Convergence of Belief Propagation  (B)\n"
-        "BER at each iteration — original contribution beyond Gallager (1962)",
+        "BER at each iteration, original contribution beyond Gallager (1962)",
         fontsize=10, fontweight="bold"
     )
     ax.yaxis.grid(True, which="both", color=C_GRID, linewidth=0.6)
@@ -123,7 +123,7 @@ def fig_convergence(results):
 
 
 # ---------------------------------------------------------------------------
-# Figure C — H matrix sparsity  [original contribution]
+# Figure C: H matrix sparsity  [original contribution]
 # ---------------------------------------------------------------------------
 def fig_h_sparsity(n_show=120):
     """Visualise the low-density structure of H for a small code segment."""
@@ -140,7 +140,7 @@ def fig_h_sparsity(n_show=120):
     ax.set_ylabel("Check node (row index)", fontsize=11)
     ax.set_title(
         f"Sparsity of Parity-Check Matrix H  (j=3, k=6, n={n_show})  (C)\n"
-        f"Density = {H.mean():.3f}  —  the 'Low Density' in LDPC",
+        f"Density = {H.mean():.3f}, the 'Low Density' in LDPC",
         fontsize=10, fontweight="bold"
     )
     ax.invert_yaxis()
@@ -161,7 +161,7 @@ def fig_h_sparsity(n_show=120):
 
 
 # ---------------------------------------------------------------------------
-# Figure D — BER gain over uncoded BPSK  [original contribution]
+# Figure D: BER gain over uncoded BPSK  [original contribution]
 # ---------------------------------------------------------------------------
 def fig_gain(results):
     """

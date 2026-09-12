@@ -108,7 +108,7 @@ def simulate_convergence(n, j, k, EbN0_dB, n_blocks=100, max_iter=50, seed=99):
 
 def main():
     print("=" * 68)
-    print("LDPC Code Replication — Gallager (1962)")
+    print("LDPC Code Replication: Gallager (1962)")
     print("COE 592: Advanced Signal and Communication Theory")
     print("Bless Elikem Krapah  |  KNUST MPhil COE")
     print("=" * 68)
@@ -138,7 +138,7 @@ def main():
 
     # Summary table
     print("\n" + "=" * 68)
-    print("BER Summary — (j=3, k=6), n=1200")
+    print("BER Summary: (j=3, k=6), n=1200")
     print(f"  {'Eb/N0 (dB)':<14} {'BER (LDPC)':<16} {'BER (Uncoded)':<16} {'Gain'}")
     print("  " + "-" * 58)
     for r in all_results["(j=3, k=6)"]:

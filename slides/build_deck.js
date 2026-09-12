@@ -2,7 +2,7 @@
 const pptxgen = require('pptxgenjs');
 const path    = require('path');
 
-// Grayscale palette — same template as ESDM and NWS decks
+// Grayscale palette: same template as ESDM and NWS decks
 const C = {
   bg:      'F7F7F7',
   primary: '111111',
@@ -75,7 +75,7 @@ function card(slide, x, y, w, h, fillColor) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// SLIDE 1 — Title (dark)
+// SLIDE 1: Title (dark)
 // ────────────────────────────────────────────────────────────────────────
 {
   const s = pres.addSlide();
@@ -112,7 +112,7 @@ function card(slide, x, y, w, h, fillColor) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// SLIDE 2 — Paper Overview
+// SLIDE 2: Paper Overview
 // ────────────────────────────────────────────────────────────────────────
 {
   const s = pres.addSlide();
@@ -158,7 +158,7 @@ function card(slide, x, y, w, h, fillColor) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// SLIDE 3 — Background: The Coding Gap
+// SLIDE 3: Background: The Coding Gap
 // ────────────────────────────────────────────────────────────────────────
 {
   const s = pres.addSlide();
@@ -210,7 +210,7 @@ function card(slide, x, y, w, h, fillColor) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// SLIDE 4 — LDPC Code Construction
+// SLIDE 4: LDPC Code Construction
 // ────────────────────────────────────────────────────────────────────────
 {
   const s = pres.addSlide();
@@ -261,7 +261,7 @@ function card(slide, x, y, w, h, fillColor) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// SLIDE 5 — Belief Propagation Decoder
+// SLIDE 5: Belief Propagation Decoder
 // ────────────────────────────────────────────────────────────────────────
 {
   const s = pres.addSlide();
@@ -323,7 +323,7 @@ function card(slide, x, y, w, h, fillColor) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// SLIDE 6 — Replication Setup
+// SLIDE 6: Replication Setup
 // ────────────────────────────────────────────────────────────────────────
 {
   const s = pres.addSlide();
@@ -379,7 +379,7 @@ function card(slide, x, y, w, h, fillColor) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// SLIDE 7 — Results: BER Curves
+// SLIDE 7: Results: BER Curves
 // ────────────────────────────────────────────────────────────────────────
 {
   const s = pres.addSlide();
@@ -415,7 +415,7 @@ function card(slide, x, y, w, h, fillColor) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// SLIDE 8 — Original Contribution: Convergence Analysis
+// SLIDE 8: Original Contribution: Convergence Analysis
 // ────────────────────────────────────────────────────────────────────────
 {
   const s = pres.addSlide();
@@ -454,7 +454,7 @@ function card(slide, x, y, w, h, fillColor) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// SLIDE 9 — Limitations
+// SLIDE 9: Limitations
 // ────────────────────────────────────────────────────────────────────────
 {
   const s = pres.addSlide();
@@ -501,7 +501,7 @@ function card(slide, x, y, w, h, fillColor) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// SLIDE 10 — Implications and Impact (dark)
+// SLIDE 10: Implications and Impact (dark)
 // ────────────────────────────────────────────────────────────────────────
 {
   const s = pres.addSlide();

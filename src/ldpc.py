@@ -20,7 +20,7 @@ def make_H(n, j, k, seed=42):
 
     Parameters
     ----------
-    n    : codeword length — must be divisible by k
+    n    : codeword length, must be divisible by k
     j    : column weight (each variable node connects to j checks)
     k    : row weight   (each check node connects to k variables)
     seed : RNG seed for reproducibility
@@ -28,8 +28,8 @@ def make_H(n, j, k, seed=42):
     Returns
     -------
     H             : (m, n) uint8 array
-    check_vars    : (m, k) int32 array  —  check_vars[c] = variable indices for check c
-    var_edge_pos  : (n, j) int32 array  —  var_edge_pos[v, p] = global edge index
+    check_vars    : (m, k) int32 array; check_vars[c] = variable indices for check c
+    var_edge_pos  : (n, j) int32 array; var_edge_pos[v, p] = global edge index
                     for variable v's p-th check connection
                     (edge index = check_id * k + within-check position)
     """
@@ -39,12 +39,12 @@ def make_H(n, j, k, seed=42):
     m_sub = n // k          # rows in each sub-matrix
     m     = j * m_sub       # total check nodes
 
-    # H1 — systematic block structure
+    # H1: systematic block structure
     H1 = np.zeros((m_sub, n), dtype=np.uint8)
     for r in range(m_sub):
         H1[r, r * k:(r + 1) * k] = 1
 
-    # H2..Hj — random column permutations
+    # H2..Hj: random column permutations
     sub_mats = [H1]
     for _ in range(j - 1):
         perm = rng.permutation(n)

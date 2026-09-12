@@ -21,15 +21,15 @@ def bp_decode(check_vars, var_edge_pos, llr_ch, j, k, max_iter=50):
 
     Parameters
     ----------
-    check_vars   : (m, k) int array  — variable indices per check node
-    var_edge_pos : (n, j) int array  — edge indices per variable node
-    llr_ch       : (n,) float array  — channel LLRs
+    check_vars   : (m, k) int array  - variable indices per check node
+    var_edge_pos : (n, j) int array  - edge indices per variable node
+    llr_ch       : (n,) float array  - channel LLRs
     j, k         : column/row weights
     max_iter     : maximum iterations
 
     Returns
     -------
-    decision  : (n,) uint8 — decoded bits
+    decision  : (n,) uint8 - decoded bits
     n_iters   : iterations used (< max_iter when syndrome = 0 early)
     converged : bool
     """
@@ -95,7 +95,7 @@ def bp_decode_record(check_vars, var_edge_pos, llr_ch, j, k, max_iter=50):
     Returns
     -------
     decision         : (n,) uint8
-    errors_per_iter  : (max_iter,) int  — cumulative bit errors at each iteration
+    errors_per_iter  : (max_iter,) int  - cumulative bit errors at each iteration
     """
     m      = check_vars.shape[0]
     n      = var_edge_pos.shape[0]
@@ -130,7 +130,7 @@ def bp_decode_record(check_vars, var_edge_pos, llr_ch, j, k, max_iter=50):
 
         syndromes = np.sum(decision[check_vars], axis=1) % 2
         if np.all(syndromes == 0):
-            # Converged — fill remaining iterations with current error count
+            # Converged: fill remaining iterations with current error count
             errors_per_iter[it + 1:] = errs
             break
 
